@@ -37,3 +37,45 @@ function search(nums: number[], target: number): number {
 };
 ```
 
+解法二：二分查找（使用二分查找**前提条件**：**升序且无重复数字**）用二进制运算符速度真的快，虽然可读性不高
+
+​      写法一:
+
+```typescript
+function search(nums: number[], target: number): number {
+    let start:number = 0, end:number = nums.length;
+    //左闭右开[start,end)
+    while(start < end) {
+        let mid = start + ((end - start) >> 1); //防溢出，equal(start+end)/2
+        if(nums[mid] < target) {
+            start = mid + 1;
+        }else if(nums[mid] > target){
+            end = mid;
+        }else {
+            return mid;
+        }
+    }
+    return -1
+};
+```
+
+​     写法二：
+
+```typescript
+function search(nums: number[], target: number): number {
+    let start:number = 0, end:number = nums.length - 1;
+    //左闭右闭[start,end]
+    while(start <= end) {
+        let mid = start + ((end - start) >> 1); //防溢出，equal(start+end)/2
+        if(nums[mid] < target) {
+            start = mid + 1;
+        }else if(nums[mid] > target){
+            end = mid - 1;
+        }else {
+            return mid;
+        }
+    }
+    return -1;
+};
+```
+
